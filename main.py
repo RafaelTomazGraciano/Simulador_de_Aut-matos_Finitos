@@ -59,8 +59,6 @@ with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
                 for estado_atual in estadosAtuais:
                     novos_estados.extend(delta(estado_atual, caractere, transicoes))
                 estadosAtuais = novos_estados #os estadosAtuais recebe os novos_estados
-                #estados.append(estadosAtuais)
-                print(estados)
                 estados.append(remover_duplicatas(estadosAtuais))
                 if estadosAtuais == -1:
                     break
@@ -87,5 +85,6 @@ with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
             escritor = csv.writer(arquivo_out, delimiter = ';')
             fim_tempo = time.perf_counter() 
             tempo = fim_tempo - inicio_tempo #calcula o tempo
+            tempo = f"{tempo:.4f}"
             escritor.writerow([linha[0], linha[1], resultado_obtido, tempo])
     
