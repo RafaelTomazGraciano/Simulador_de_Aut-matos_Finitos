@@ -43,8 +43,6 @@ dadosJson = json.load(arquivo_json)
 estadoInicial = dadosJson['initial']
 estadoFinal = dadosJson['final']
 transicoes = dadosJson['transitions']
-print(estadoFinal)
-print(deterministico(dadosJson))
 
 with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
     with open(sys.argv[2], 'r') as arquivo_in: #lendo arquivo in
