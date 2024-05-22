@@ -17,7 +17,7 @@ def delta(q, a, transicoes):#Função delta que executa as transicoes do automat
     return resultados
 
 
-def deterministico(dadosJson):
+def deterministico(dadosJson):#Verifica se o automato e deterministico ou nao deterministico
     estados = set()
     transicoes = set() 
     for transicao in dadosJson['transitions']:
