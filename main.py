@@ -12,7 +12,7 @@ if len(sys.argv) != 4: #Trantando os arquivos de entrada
 def delta(q, a, transicoes):#Função delta que executa as transicoes do automato
     resultados = []
     for transicao in  transicoes:
-        if transicao['from'] == q and transicao['read'] == a:
+        if transicao['from'] == q and transicao['read'] == a or transicao['read'] == None:
             resultados.append(transicao['to'])
     return resultados
 
@@ -41,7 +41,7 @@ dadosJson = json.load(arquivo_json)
 
 #definindo os estados
 estadoInicial = dadosJson['initial']
-estadoFinal = dadosJson['final']
+estadoFinal = [(dadosJson['final'])]
 transicoes = dadosJson['transitions']
 
 with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
@@ -69,13 +69,17 @@ with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
                         else:
                             resultado_obtido = 0
             else:
+                encontrou_final = False
                 for estado in estados: #Verificando se o automato chegou no estado final para automato nao deterministico
                     for final in estadoFinal: 
                         if final in estado:
                             resultado_obtido = 1
-                            break
+                            encontrou_final = True
+                            break  # Interrompe o loop interno
                         else:
                             resultado_obtido = 0
+                    if encontrou_final:
+                        break  # Interrompe o loop externo 
             #Escrevendo arquivo out
             escritor = csv.writer(arquivo_out, delimiter = ';')
             fim_tempo = time.perf_counter() 
