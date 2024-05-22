@@ -28,7 +28,8 @@ def deterministico(dadosJson):#Verifica se o automato e deterministico ou nao de
         transicoes.add(transicao_atual)
     return True
 
-    
+def remover_duplicatas(lista):
+    return list(dict.fromkeys(lista))
 
 #inicia contar o tempo
 inicio_tempo = time.perf_counter() #Inicia a contar o tempo
@@ -58,7 +59,9 @@ with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
                 for estado_atual in estadosAtuais:
                     novos_estados.extend(delta(estado_atual, caractere, transicoes))
                 estadosAtuais = novos_estados #os estadosAtuais recebe os novos_estados
-                estados.append(estadosAtuais)
+                #estados.append(estadosAtuais)
+                print(estados)
+                estados.append(remover_duplicatas(estadosAtuais))
                 if estadosAtuais == -1:
                     break
             if deterministico(dadosJson) == True: 
