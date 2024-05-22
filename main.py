@@ -43,7 +43,8 @@ dadosJson = json.load(arquivo_json)
 estadoInicial = dadosJson['initial']
 estadoFinal = dadosJson['final']
 transicoes = dadosJson['transitions']
-
+print(estadoFinal)
+print(deterministico(dadosJson))
 
 with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
     with open(sys.argv[2], 'r') as arquivo_in: #lendo arquivo in
@@ -63,18 +64,20 @@ with open(sys.argv[3], 'w', newline='') as arquivo_out: #criando arquivo out
                 if estadosAtuais == -1:
                     break
             if deterministico(dadosJson) == True: 
-                for estado in estados:  #Verificando se o automato chegou no estado final para automato deterministico
-                    if estadoFinal in estado:
-                        resultado_obtido = 1
-                    else:
-                        resultado_obtido = 0
+                for estado in estados: #Verificando se o automato chegou no estado final para automato deterministico
+                    for final in estadoFinal:
+                        if final in estado:
+                            resultado_obtido = 1
+                        else:
+                            resultado_obtido = 0
             else:
-                for estado in estados:  #Verificando se o automato chegou no estado final para automato nao deterministico
-                    if estadoFinal in estado:
-                        resultado_obtido = 1
-                        break
-                    else:
-                        resultado_obtido = 0
+                for estado in estados: #Verificando se o automato chegou no estado final para automato nao deterministico
+                    for final in estadoFinal: 
+                        if final in estado:
+                            resultado_obtido = 1
+                            break
+                        else:
+                            resultado_obtido = 0
             #Escrevendo arquivo out
             escritor = csv.writer(arquivo_out, delimiter = ';')
             fim_tempo = time.perf_counter() 
